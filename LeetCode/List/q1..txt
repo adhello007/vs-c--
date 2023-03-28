@@ -1,0 +1,63 @@
+// https://leetcode.com/problems/remove-nodes-from-linked-list/
+
+class Solution {
+public:
+    ListNode * BiggestNum(ListNode *head)
+    {
+        ListNode *p=head;
+        ListNode *m=NULL;
+        int max=INT_MIN; 
+        while(p)
+        {
+            if(p->val>max) 
+            {
+                max=p->val;
+                m=p;
+                
+
+            }
+            p=p->next;
+        }
+        return m;
+        
+    }
+    ListNode* removeNodes(ListNode* head)
+    {
+         ListNode *q=head; 
+        ListNode *p=head;
+        ListNode *t=head; 
+        int c=1;
+
+        q= BiggestNum(p);
+        if(q==p) 
+        {
+            if(p->next==NULL) return head;
+            p=p->next;
+            c=0;
+        }
+
+        while(p->next)
+        {
+            q = BiggestNum(p);
+            
+            if(c)
+            {
+                head=q; 
+                t=head;
+                if(head->next) p=head->next; 
+                
+            }
+            if(c==0)
+            {
+                t->next= q;
+            t=q;
+            if(q->next) p=q->next;
+            else p=q;
+            }
+            c=0;
+
+        }
+        return head; 
+    };
+
+};
